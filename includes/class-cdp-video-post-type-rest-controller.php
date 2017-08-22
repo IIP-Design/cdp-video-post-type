@@ -5,7 +5,7 @@ if (!defined('WPINC')) {
 
 // include dependencies
 include_once (ABSPATH . 'wp-admin/includes/plugin.php');
-include_once (plugins_url() . '/wp-elasticsearch-feeder/wp-es-feeder.php');
+include_once (WP_PLUGIN_DIR . '/wp-elasticsearch-feeder/wp-es-feeder.php');
 
 // required for this to execute correctly
 $required_plugin = 'wp-elasticsearch-feeder/wp-es-feeder.php';
