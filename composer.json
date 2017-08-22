@@ -1,0 +1,15 @@
+{
+    "name": "iip-design/cdp-video-post-type",
+    "type": "wordpress-plugin",
+    "description" : "CDP Video Post-Type enables you to create video content. The plugin is not publicly accessible, so a page url will not be generated for this content. It serves only to submit video content to be index into the CDP.",
+    "authors": [
+        {
+            "name": "Office of Design, U.S. Department of State",
+            "email": "orelusm@america.gov"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+       "composer/installers": "~1.0"
+    }
+}
