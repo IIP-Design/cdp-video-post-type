@@ -98,7 +98,11 @@ class Cdp_Video_Post_Type
 	 */
 	private function load_dependencies()
 	{
-
+		/**
+		 * Load CMB2
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'vendor/CMB2/cmb2/init.php';
+		
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.

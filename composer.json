@@ -8,8 +8,20 @@
             "email": "orelusm@america.gov"
         }
     ],
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:cmb2/cmb2.git"
+        }
+    ],
     "minimum-stability": "stable",
     "require": {
-       "composer/installers": "~1.0"
+       "composer/installers": "~1.0",
+       "cmb2/cmb2": "^2.2"
+    },
+    "extra": {
+        "installer-paths": {
+            "vendor/cmb2/cmb2": ["cmb2/cmb2"]
+        }
     }
 }
