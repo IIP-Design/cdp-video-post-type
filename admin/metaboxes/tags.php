@@ -25,6 +25,8 @@ $language = $tags->add_field( array(
 
 Cdp_Video_Post_Type_Admin::cmb2_video_post_type_language_metabox($tags, $language, $prefix . 'tags_language_language');
 
+
+// To-do: Adjust this field to select from an array of existing tags for each language
 $tags->add_group_field($language, array(
   'name'    => 'Tags',
   'desc'    => 'Tags (separated by comma)',

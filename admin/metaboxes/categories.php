@@ -25,6 +25,8 @@ $language = $categories->add_field( array(
 
 Cdp_Video_Post_Type_Admin::cmb2_video_post_type_language_metabox($categories, $language, $prefix . 'categories_language_language');
 
+
+// To-do: Adjust this field to select from an array of existing categories for each language
 $categories->add_group_field($language, array(
   'name'    => 'Categories',
   'desc'    => 'Categories (separated by comma)',
