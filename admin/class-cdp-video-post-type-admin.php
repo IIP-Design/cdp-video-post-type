@@ -100,8 +100,7 @@ class Cdp_Video_Post_Type_Admin {
 
 	}
 
-	function create_custom_video_post_type()
-	{
+	public function create_custom_video_post_type() {
 		$labels = array(
 			'name' => _x('Videos', 'Post Type General Name', 'text_domain'),
 			'singular_name' => _x('Video', 'Post Type Singular Name', 'text_domain'),
@@ -154,7 +153,7 @@ class Cdp_Video_Post_Type_Admin {
 		register_post_type('video', $args);
 	}
 
-	function cmb2_video_post_type_language_metabox($cmb, $group, $id) {
+	public function cmb2_video_post_type_language_metabox($cmb, $group, $id) {
 		$cmb->add_group_field($group, array(
 			'name'             => 'Language',
 			'desc'             => 'Select the language.',
@@ -169,163 +168,12 @@ class Cdp_Video_Post_Type_Admin {
 		) );
 	}
 
-	function cmb2_video_post_type_metaboxes()
-	{
-		$prefix = '_cdp_';
-
-		$cmb = new_cmb2_box(array(
-			'id' => $prefix . 'video_post_type_metabox',
-			'title' => __('Videos', 'cmb2'),
-			'object_types' => array('video', ),
-			'context' => 'normal',
-			'priority' => 'high',
-			'show_names' => true
-		));
-
-		$group_files = $cmb->add_field( array(
-			'id'          => $prefix . 'video_post_type_group_files',
-			'type'        => 'group',
-			'description' => __( 'Add your video files and/or streaming URL.', 'cmb2' ),
-			'repeatable'  => true,
-			'options'     => array(
-				'group_title'   => __( 'Video File {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-				'add_button'    => __( 'Add Another Video File', 'cmb2' ),
-				'remove_button' => __( 'Remove File', 'cmb2' ),
-				'sortable'      => true, // beta
-				// 'closed'     => true, // true to have the groups closed by default
-			),
-		) );
-
-		$cmb->add_group_field($group_files, array(
-			'name'    => 'Video Title',
-			'desc'    => 'Title of the video',
-			'id'      => $prefix . 'video_post_type_group_info_title',
-			'type'    => 'text',
-		) );
-
-		$cmb->add_group_field($group_files, array(
-			'name' => 'Description',
-			'desc' => 'Description for this context (optional)',
-			'id' => $prefix . 'video_post_type_group_info_description',
-			'type' => 'textarea_small'
-		));
-
-		$cmb->add_group_field($group_files, array(
-			'name' => 'Video File',
-			'desc' => 'Upload a video file if you would like it downloadable.',
-			'id' => $prefix . 'video_post_type_group_files',
-			'type' => 'file',
-			'options' => array(
-				'url' => false,
-			),
-			'text' => array(
-				'add_upload_file_text' => 'Add Video'
-			),
-			'query_args' => array(
-				'type' => array(
-				  'video/mp4',
-				  'video/mpeg',
-				  'video/avi'
-				)
-			),
-		));
-
-		$cmb->add_group_field($group_files, array(
-			'name' => 'Streaming URL',
-			'desc' => 'Enter a streaming URL.',
-			'id' => $prefix . 'video_post_type_video_url',
-			'type' => 'oembed',
-		));
-
-		$cmb->add_group_field($group_files, array(
-			'name'             => 'Captions',
-			'desc'             => 'Does the video contain burned-in captions?',
-			'id'               => $prefix . 'video_post_type_video_captions',
-			'type'             => 'select',
-			'default'          => 'no',
-			'options'          => array(
-				'no' => __( 'No', 'cmb2' ),
-				'yes'   => __( 'Yes', 'cmb2' ),
-			),
-		) );
-
-		Cdp_Video_Post_Type_Admin::cmb2_video_post_type_language_metabox($cmb, $group_files, $prefix . 'video_post_type_group_files_language');
-
-		$group_srt_files = $cmb->add_field( array(
-			'id'          => $prefix . 'video_post_type_group_srt_files',
-			'type'        => 'group',
-			'description' => __( 'Add your video SRT files.', 'cmb2' ),
-			'repeatable'  => true,
-			'options'     => array(
-				'group_title'   => __( 'SRT File {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-				'add_button'    => __( 'Add Another SRT file', 'cmb2' ),
-				'remove_button' => __( 'Remove SRT File', 'cmb2' ),
-				'sortable'      => true, // beta
-				// 'closed'     => true, // true to have the groups closed by default
-			),
-		) );
-
-		$cmb->add_group_field($group_srt_files, array(
-			'name' => 'SRT File',
-			'desc' => 'Upload an SRT file.',
-			'id' => $prefix . 'video_post_type_srt_files_file',
-			'type' => 'file',
-			'options' => array(
-				'url' => false,
-			),
-			'text' => array(
-				'add_upload_file_text' => 'Add SRT File'
-			),
-			'query_args' => array(
-				'type' => 'application/srt',
-			),
-		));
-
-		Cdp_Video_Post_Type_Admin::cmb2_video_post_type_language_metabox($cmb, $group_srt_files, $prefix . 'video_post_type_group_srt_files_language');
-
-		$group_transcripts = $cmb->add_field( array(
-			'id'          => $prefix . 'video_post_type_group_transcripts',
-			'type'        => 'group',
-			'description' => __( 'Add your video transcripts.', 'cmb2' ),
-			'repeatable'  => true,
-			'options'     => array(
-				'group_title'   => __( 'Video Transcript {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-				'add_button'    => __( 'Add Another Video Transcript', 'cmb2' ),
-				'remove_button' => __( 'Remove Transcript', 'cmb2' ),
-				'sortable'      => true, // beta
-				// 'closed'     => true, // true to have the groups closed by default
-			),
-		) );
-
-		$cmb->add_group_field($group_transcripts, array(
-			'name' => 'Transcript File',
-			'desc' => 'Upload an transcript file if you would like transcripts downloadable.',
-			'id' => $prefix . 'video_post_type_transcript_file',
-			'type' => 'file',
-			'options' => array(
-				'url' => false,
-			),
-			'text' => array(
-				'add_upload_file_text' => 'Add Transcript'
-			),
-			'query_args' => array(
-				'type' => 'application/pdf',
-			),
-		));
-
-		$cmb->add_group_field($group_transcripts, array(
-			'name' => 'Transcript Text',
-			'desc' => 'Type everything that\'s spoken in the video here.',
-			'id' => $prefix . 'video_post_type_transcript',
-			'type' => 'wysiwyg',
-			'options' => array(
-				'teeny' => true,
-				'media_buttons' => false
-			),
-		));
-
-		Cdp_Video_Post_Type_Admin::cmb2_video_post_type_language_metabox($cmb, $group_transcripts, $prefix . 'video_post_type_group_transcripts_language');
-
+	public function cmb2_video_post_type_metaboxes() {
+		$prefix = '_cdp_video_';
+		
+    foreach( glob( plugin_dir_path( __FILE__ ) . 'metaboxes/*.php') as $video_file ) {
+      require_once $video_file;
+    }
 	}
 
 }
