@@ -2,3 +2,25 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+#_cdp_video_tags_metabox .cmb-remove-field-row, 
+#_cdp_video_categories_metabox .cmb-remove-field-row {
+  display:none;
+}
+
+#side-sortables .cmb2-wrap > .cmb-field-list > .cmb-row {
+  padding: 0.4em 0;
+}
+
+#side-sortables .cmb-td,
+#side-sortables .cmb-th {
+  padding: 0;
+}
+
+#side-sortables .cmb-row .cmb2-metabox-description {
+  padding-bottom: 0.8em;
+}
+
+#side-sortables .cmb-type-group .cmb-repeat-group-field {
+  padding: 0;
+}

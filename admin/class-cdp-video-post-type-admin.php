@@ -73,7 +73,7 @@ class Cdp_Video_Post_Type_Admin {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cdp-video-post-type-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/cdp-video-post-type-admin.css', array('cmb2-styles'), $this->version, 'all' );
 
 	}
 
