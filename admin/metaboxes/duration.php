@@ -16,6 +16,8 @@ $duration->add_field( array(
   'type'        => 'text_time',
   'attributes' => array(
     'data-timepicker' => json_encode( array(
+            'timeOnlyTitle' => 'Choose duration',
+            'timeText' => 'Duration',
             'stepMinute' => 1,
             'timeFormat' => 'HH:mm:ss',
             'showButtonPanel' => false
