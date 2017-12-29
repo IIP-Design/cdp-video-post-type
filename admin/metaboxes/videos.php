@@ -31,7 +31,7 @@ $videos->add_group_field($video, array(
 
 $videos->add_group_field($video, array(
   'name' => 'Description',
-  'desc' => 'Description for this context (optional)',
+  'desc' => 'Description of the video',
   'id' => $prefix . 'videos_video_description',
   'type' => 'textarea_small'
 ));
