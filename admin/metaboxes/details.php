@@ -14,6 +14,7 @@ $details->add_field( array(
   'name'        => 'Video Duration',
   'desc' => 'Duration of the video',
   'type'        => 'text_time',
+  'time_format' => 'H:m:s',
   'attributes' => array(
     'data-timepicker' => json_encode( array(
             'timeOnlyTitle' => 'Choose duration',
