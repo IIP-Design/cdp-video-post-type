@@ -1,15 +1,15 @@
 <?php
 
-$duration = new_cmb2_box(array(
-  'id' => $prefix . 'duration_metabox',
-  'title' => __('Video Duration', 'cmb2'),
+$details = new_cmb2_box(array(
+  'id' => $prefix . 'details_metabox',
+  'title' => __('Video Details', 'cmb2'),
   'object_types' => array('video', ),
   'context' => 'normal',
   'priority' => 'low',
   'show_names' => true
 ));
 
-$duration->add_field( array(
+$details->add_field( array(
   'id'          => $prefix . 'duration',
   'name'        => 'Video Duration',
   'desc' => 'Duration of the video',
@@ -23,6 +23,20 @@ $duration->add_field( array(
             'showButtonPanel' => false
     ) ),
   ),
+) );
+
+$details->add_field( array(
+  'name'    => 'Video Author',
+  'desc'    => 'Author of the video',
+  'id'      => $prefix . 'author',
+  'type'    => 'text',
+) );
+
+$details->add_field( array(
+  'name'    => 'Video Owner',
+  'desc'    => 'Owner of the video',
+  'id'      => $prefix . 'owner',
+  'type'    => 'text',
 ) );
 
 ?>

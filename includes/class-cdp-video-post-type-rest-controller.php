@@ -12,10 +12,8 @@ $required_plugin = 'wp-elasticsearch-feeder/wp-es-feeder.php';
 
 // check if the feeder exists, if it does create the controller route
 if (is_plugin_active($required_plugin)) {
-  class WP_ES_FEEDER_EXT_VIDEO_Controller extends WP_ES_FEEDER_REST_Controller
-  {
-    public function prepare_item_for_response($post, $request)
-    {
+  class WP_ES_FEEDER_EXT_VIDEO_Controller extends WP_ES_FEEDER_REST_Controller {
+    public function prepare_item_for_response($post, $request) {
       $document = array();
 
       // fields to apply to video json document
@@ -52,8 +50,7 @@ if (is_plugin_active($required_plugin)) {
     }
   }
 
-  function register_video_post_type_rest_routes()
-  {
+  function register_video_post_type_rest_routes() {
     $controller = new WP_ES_FEEDER_EXT_VIDEO_Controller('video');
     $controller->register_routes();
   }
