@@ -176,7 +176,7 @@ class Cdp_Video_Post_Type
 	private function define_admin_hooks()
 	{
 
-		$plugin_admin = new Cdp_Video_Post_Type_Admin($this->get_plugin_name(), $this->get_version(), $this->get_languages());
+		$plugin_admin = new Cdp_Video_Post_Type_Admin($this->get_plugin_name(), $this->get_version());
 
 		// iniate cmb2
 		$this->loader->add_action('cmb2_admin_init', $plugin_admin, 'cmb2_video_post_type_metaboxes');
@@ -196,7 +196,7 @@ class Cdp_Video_Post_Type
 	private function define_public_hooks()
 	{
 
-		$plugin_public = new Cdp_Video_Post_Type_Public($this->get_plugin_name(), $this->get_version(), $this->get_languages());
+		$plugin_public = new Cdp_Video_Post_Type_Public($this->get_plugin_name(), $this->get_version());
 
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
