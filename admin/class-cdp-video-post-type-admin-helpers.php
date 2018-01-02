@@ -10,12 +10,7 @@ if ( !class_exists( 'Cdp_Video_Post_Type_Admin_Helpers' ) ) {
         'id'               => $id,
         'type'             => 'select',
         'default'          => 'english',
-        'options'          => array(
-          'en' => __( 'English', 'cmb2' ),
-          'es' => __( 'Spanish', 'cmb2' ),
-          'fr' => __( 'French', 'cmb2' ),
-          'pt' => __( 'Portuguese', 'cmb2' ),
-        ),
+        'options'          => Cdp_Video_Post_Type::get_languages()
       ) );
     }
 

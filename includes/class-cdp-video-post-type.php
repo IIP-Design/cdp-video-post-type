@@ -176,7 +176,7 @@ class Cdp_Video_Post_Type
 	private function define_admin_hooks()
 	{
 
-		$plugin_admin = new Cdp_Video_Post_Type_Admin($this->get_plugin_name(), $this->get_version());
+		$plugin_admin = new Cdp_Video_Post_Type_Admin($this->get_plugin_name(), $this->get_version(), $this->get_languages());
 
 		// iniate cmb2
 		$this->loader->add_action('cmb2_admin_init', $plugin_admin, 'cmb2_video_post_type_metaboxes');
@@ -196,7 +196,7 @@ class Cdp_Video_Post_Type
 	private function define_public_hooks()
 	{
 
-		$plugin_public = new Cdp_Video_Post_Type_Public($this->get_plugin_name(), $this->get_version());
+		$plugin_public = new Cdp_Video_Post_Type_Public($this->get_plugin_name(), $this->get_version(), $this->get_languages());
 
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
 		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
@@ -205,37 +205,37 @@ class Cdp_Video_Post_Type
 
 	public function create_custom_video_post_type() {
 		$labels = array(
-			'name' => _x('Videos', 'Post Type General Name', 'text_domain'),
-			'singular_name' => _x('Video', 'Post Type Singular Name', 'text_domain'),
-			'menu_name' => __('Videos', 'text_domain'),
-			'name_admin_bar' => __('Video', 'text_domain'),
-			'archives' => __('Video Archives', 'text_domain'),
-			'attributes' => __('Video Attributes', 'text_domain'),
-			'parent_item_colon' => __('Parent Video:', 'text_domain'),
-			'all_items' => __('All Videos', 'text_domain'),
-			'add_new_item' => __('Add New Video', 'text_domain'),
-			'add_new' => __('Add New', 'text_domain'),
-			'new_item' => __('New Video', 'text_domain'),
-			'edit_item' => __('Edit Video', 'text_domain'),
-			'update_item' => __('Update Video', 'text_domain'),
-			'view_item' => __('View Video', 'text_domain'),
-			'view_items' => __('View Videos', 'text_domain'),
-			'search_items' => __('Search Video', 'text_domain'),
-			'not_found' => __('Not found', 'text_domain'),
-			'not_found_in_trash' => __('Not found in Trash', 'text_domain'),
-			'featured_image' => __('Featured Image', 'text_domain'),
-			'set_featured_image' => __('Set featured image', 'text_domain'),
-			'remove_featured_image' => __('Remove featured image', 'text_domain'),
-			'use_featured_image' => __('Use as featured image', 'text_domain'),
-			'insert_into_item' => __('Insert into video', 'text_domain'),
-			'uploaded_to_this_item' => __('Uploaded to this video', 'text_domain'),
-			'items_list' => __('Videos list', 'text_domain'),
-			'items_list_navigation' => __('Videos list navigation', 'text_domain'),
-			'filter_items_list' => __('Filter videos list', 'text_domain'),
+			'name' => _x('Videos', 'Post Type General Name', 'cdp-video-post-type'),
+			'singular_name' => _x('Video', 'Post Type Singular Name', 'cdp-video-post-type'),
+			'menu_name' => __('Videos', 'cdp-video-post-type'),
+			'name_admin_bar' => __('Video', 'cdp-video-post-type'),
+			'archives' => __('Video Archives', 'cdp-video-post-type'),
+			'attributes' => __('Video Attributes', 'cdp-video-post-type'),
+			'parent_item_colon' => __('Parent Video:', 'cdp-video-post-type'),
+			'all_items' => __('All Videos', 'cdp-video-post-type'),
+			'add_new_item' => __('Add New Video', 'cdp-video-post-type'),
+			'add_new' => __('Add New', 'cdp-video-post-type'),
+			'new_item' => __('New Video', 'cdp-video-post-type'),
+			'edit_item' => __('Edit Video', 'cdp-video-post-type'),
+			'update_item' => __('Update Video', 'cdp-video-post-type'),
+			'view_item' => __('View Video', 'cdp-video-post-type'),
+			'view_items' => __('View Videos', 'cdp-video-post-type'),
+			'search_items' => __('Search Video', 'cdp-video-post-type'),
+			'not_found' => __('Not found', 'cdp-video-post-type'),
+			'not_found_in_trash' => __('Not found in Trash', 'cdp-video-post-type'),
+			'featured_image' => __('Featured Image', 'cdp-video-post-type'),
+			'set_featured_image' => __('Set featured image', 'cdp-video-post-type'),
+			'remove_featured_image' => __('Remove featured image', 'cdp-video-post-type'),
+			'use_featured_image' => __('Use as featured image', 'cdp-video-post-type'),
+			'insert_into_item' => __('Insert into video', 'cdp-video-post-type'),
+			'uploaded_to_this_item' => __('Uploaded to this video', 'cdp-video-post-type'),
+			'items_list' => __('Videos list', 'cdp-video-post-type'),
+			'items_list_navigation' => __('Videos list navigation', 'cdp-video-post-type'),
+			'filter_items_list' => __('Filter videos list', 'cdp-video-post-type'),
 		);
 		$args = array(
-			'label' => __('Video', 'text_domain'),
-			'description' => __('CDP video custom post-type', 'text_domain'),
+			'label' => __('Video', 'cdp-video-post-type'),
+			'description' => __('CDP video custom post-type', 'cdp-video-post-type'),
 			'labels' => $labels,
 			'supports' => array('title'),
 			//'taxonomies' => array('category', 'post_tag'),
@@ -299,6 +299,15 @@ class Cdp_Video_Post_Type
 	public function get_version()
 	{
 		return $this->version;
+	}
+
+	public static function get_languages() {
+		return array(
+      'en' => __( 'English', 'cdp-video-post-type' ),
+      'es' => __( 'Spanish', 'cdp-video-post-type' ),
+      'fr' => __( 'French', 'cdp-video-post-type' ),
+      'pt' => __( 'Portuguese', 'cdp-video-post-type' ),
+    );
 	}
 
 }

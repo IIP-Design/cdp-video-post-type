@@ -1,40 +1,26 @@
 <?php
 $videos = new_cmb2_box(array(
   'id' => $prefix . 'videos_metabox',
-  'title' => __('Videos', 'cmb2'),
+  'title' => __('Videos', 'cdp-video-post-type'),
   'object_types' => array('video', ),
   'context' => 'normal',
-  'priority' => 'high',
+  'priority' => 'core',
   'show_names' => true
 ));
 
 $video = $videos->add_field( array(
   'id'          => $prefix . 'videos_video',
   'type'        => 'group',
-  'description' => __( 'Add your video files and/or streaming URL.', 'cmb2' ),
+  'description' => __( 'Add your video files and/or streaming URL.', 'cdp-video-post-type' ),
   'repeatable'  => true,
   'options'     => array(
-    'group_title'   => __( 'Video File {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-    'add_button'    => __( 'Add Another Video File', 'cmb2' ),
-    'remove_button' => __( 'Remove File', 'cmb2' ),
+    'group_title'   => __( 'Video File {#}', 'cdp-video-post-type' ), // since version 1.1.4, {#} gets replaced by row number
+    'add_button'    => __( 'Add Another Video File', 'cdp-video-post-type' ),
+    'remove_button' => __( 'Remove File', 'cdp-video-post-type' ),
     'sortable'      => true, // beta
     // 'closed'     => true, // true to have the groups closed by default
   ),
 ) );
-
-$videos->add_group_field($video, array(
-  'name'    => 'Video Title',
-  'desc'    => 'Title of the video',
-  'id'      => $prefix . 'videos_video_title',
-  'type'    => 'text',
-) );
-
-$videos->add_group_field($video, array(
-  'name' => 'Description',
-  'desc' => 'Description of the video',
-  'id' => $prefix . 'videos_video_description',
-  'type' => 'textarea_small'
-));
 
 $videos->add_group_field($video, array(
   'name' => 'Video File',
@@ -70,8 +56,8 @@ $videos->add_group_field($video, array(
   'type'             => 'select',
   'default'          => 'no',
   'options'          => array(
-    'no' => __( 'No', 'cmb2' ),
-    'yes'   => __( 'Yes', 'cmb2' ),
+    'no' => __( 'No', 'cdp-video-post-type' ),
+    'yes'   => __( 'Yes', 'cdp-video-post-type' ),
   ),
 ) );
 
