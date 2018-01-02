@@ -50,6 +50,6 @@ $transcripts->add_group_field($transcript, array(
   ),
 ));
 
-Cdp_Video_Post_Type_Admin::cmb2_video_post_type_language_metabox($transcripts, $transcript, $prefix . 'transcripts_transcript_language');
+Cdp_Video_Post_Type_Admin_Helpers::cmb2_video_post_type_language_metabox($transcripts, $transcript, $prefix . 'transcripts_transcript_language');
 
 ?>

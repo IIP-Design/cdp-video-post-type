@@ -39,6 +39,6 @@ $srts->add_group_field( $srt, array(
   ),
 ));
 
-Cdp_Video_Post_Type_Admin::cmb2_video_post_type_language_metabox($srts, $srt, $prefix . 'srts_srt_language');
+Cdp_Video_Post_Type_Admin_Helpers::cmb2_video_post_type_language_metabox($srts, $srt, $prefix . 'srts_srt_language');
 
 ?>

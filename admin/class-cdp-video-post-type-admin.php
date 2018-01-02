@@ -51,6 +51,7 @@ class Cdp_Video_Post_Type_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->load_helpers();
 
 	}
 
@@ -100,19 +101,8 @@ class Cdp_Video_Post_Type_Admin {
 
 	}
 
-	public function cmb2_video_post_type_language_metabox($cmb, $group, $id) {
-		$cmb->add_group_field($group, array(
-			'name'             => 'Language',
-			'desc'             => 'Select the language.',
-			'id'               => $id,
-			'type'             => 'select',
-			'default'          => 'english',
-			'options'          => array(
-				'english' => __( 'English', 'cmb2' ),
-				'french'   => __( 'French', 'cmb2' ),
-				'spanish'     => __( 'Spanish', 'cmb2' ),
-			),
-		) );
+	public function load_helpers() {
+		require plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-cdp-video-post-type-admin-helpers.php';
 	}
 
 	public function cmb2_video_post_type_metaboxes() {

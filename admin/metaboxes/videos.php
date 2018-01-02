@@ -75,5 +75,5 @@ $videos->add_group_field($video, array(
   ),
 ) );
 
-Cdp_Video_Post_Type_Admin::cmb2_video_post_type_language_metabox($videos, $video, $prefix . 'videos_video_language');
+Cdp_Video_Post_Type_Admin_Helpers::cmb2_video_post_type_language_metabox($videos, $video, $prefix . 'videos_video_language');
 ?>
