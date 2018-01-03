@@ -70,8 +70,8 @@ if (is_plugin_active($required_plugin)) {
       $units = array();
       $srts = $this->get_srts( $id );
       $transcripts = $this->get_transcripts( $id );
-      $categories = array();
-      $tags = array();
+      $categories = $this->get_categories( $id );
+      $tags = $this->get_tags( $id );
       $videos = $this->get_videos( $id );
       $headers = $this->get_headers( $id );
 
@@ -90,7 +90,17 @@ if (is_plugin_active($required_plugin)) {
         }
 
         $unit->categories = array();
+        foreach ($categories as $category) {
+          if (in_array($key, $category, true))
+            $unit->categories = array_map('trim', explode(',', $category['_cdp_video_categories_language_categories']));
+        }
+
         $unit->tags = array();
+        foreach ($tags as $tag) {
+          if (in_array($key, $tag, true))
+            $unit->tags = array_map('trim', explode(',', $tag['_cdp_video_tags_language_tags']));
+        }
+
         $unit->source = array();
 
         foreach ($videos as $video) {
@@ -139,6 +149,16 @@ if (is_plugin_active($required_plugin)) {
     private function get_transcripts( $id ) {
       $transcripts = get_post_meta($id, '_cdp_video_transcripts_transcript', true);
       return $transcripts;
+    }
+
+    private function get_categories( $id ) {
+      $categories = get_post_meta($id, '_cdp_video_categories_language', true);
+      return $categories;
+    }
+
+    private function get_tags( $id ) {
+      $tags = get_post_meta($id, '_cdp_video_tags_language', true);    
+      return $tags;
     }
 
     private function get_videos( $id ) {
