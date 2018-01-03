@@ -105,7 +105,7 @@ if (is_plugin_active($required_plugin)) {
             $size->bitrate = $fileinfo['bitrate'];
 
             $vidObj->size = $size;
-            
+
             array_push($unit->source, $vidObj);
           }
         }
@@ -159,10 +159,6 @@ if (is_plugin_active($required_plugin)) {
     private function get_headers( $id ) {
       $headers = get_post_meta($id, '_cdp_video_headers', true);
       return $headers;
-    }
-
-    private function get_file_meta( $file ) {
-      return get_meta_tags($file);
     }
 
     private function filter_languages($srts, $transcripts, $categories, $tags, $videos, $headers) {
