@@ -26,28 +26,6 @@ if (is_plugin_active($required_plugin)) {
       $document['author'] = get_post_meta($post->ID, '_cdp_video_author', true);
       $document['duration'] = $this->duration_to_seconds($post->ID);
       $document['unit'] = $this->get_units($post->ID);
-      //$document['title'] = $post->post_title;
-      //$document['slug'] = $post->post_name;
-      //$document['categories'] = ES_API_HELPER::get_categories($post->ID);
-      //$document['tags'] = ES_API_HELPER::get_tags($post->ID);
-
-      // $opt = get_option($this->plugin_name);
-      // $opt_url = $opt['es_wpdomain'];
-      // $document['link'] = str_replace(site_url(), $opt_url, get_permalink($post->ID));
-
-      // $feature_image_exists = has_post_thumbnail($post->ID);
-      // if ($feature_image_exists) {
-      //   $document['featured_image'] = ES_API_HELPER::get_featured_image(get_post_thumbnail_id($post->ID));
-      // }
-      // else {
-      //   $document['featured_image'] = new stdClass();
-      // }
-
-      // // custom fields
-      // $document['video_url'] = get_post_meta($post->ID, 'cdp_video_type_video_url', true);
-      // $document['description'] = get_post_meta($post->ID, 'cdp_video_type_description', true);
-      // $document['transcript'] = get_post_meta($post->ID, 'cdp_video_type_transcript', true);
-      // $document['transcript_file_url'] = get_post_meta($post->ID, 'cdp_video_type_transcript_file', true);
 
       return rest_ensure_response($document);
     }
