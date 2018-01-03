@@ -302,12 +302,14 @@ class Cdp_Video_Post_Type
 	}
 
 	public static function get_languages() {
-		return array(
-      'en' => __( 'English', 'cdp-video-post-type' ),
-      'es' => __( 'Spanish', 'cdp-video-post-type' ),
-      'fr' => __( 'French', 'cdp-video-post-type' ),
-      'pt' => __( 'Portuguese', 'cdp-video-post-type' ),
-    );
+		$languages = Language_Helper::LANGUAGE_HASH;
+		$langArray = array();
+
+		foreach( $languages as $key=>$value ) {
+			$langArray[$key] = $value['display_name'];
+		}
+
+		return $langArray;
 	}
 
 }

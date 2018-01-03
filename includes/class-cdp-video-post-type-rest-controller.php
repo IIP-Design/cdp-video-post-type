@@ -80,7 +80,7 @@ if (is_plugin_active($required_plugin)) {
       foreach($languages as $key=>$value) {
         $unit = new stdClass();
 
-        $unit->language = $value;
+        $unit->language = Language_Helper::get_language_by_locale( $key );
 
         foreach ($headers as $header) {
           if (in_array($key, $header, true)) {
