@@ -6,6 +6,7 @@ if (!defined('WPINC')) {
 // include dependencies
 include_once (ABSPATH . 'wp-admin/includes/plugin.php');
 include_once (WP_PLUGIN_DIR . '/wp-elasticsearch-feeder/wp-es-feeder.php');
+include_once (plugin_dir_path(dirname(__FILE__)) . 'vendor/james-heinrich/getid3/getid3/getid3.php');
 
 // required for this to execute correctly
 $required_plugin = 'wp-elasticsearch-feeder/wp-es-feeder.php';
@@ -84,16 +85,27 @@ if (is_plugin_active($required_plugin)) {
         foreach ($videos as $video) {
           if (in_array($key, $video, true)) {
             $vidObj = new stdClass();
+
+            $filesrc = $video['_cdp_video_videos_video_file'];
+            $path = parse_url($filesrc, PHP_URL_PATH);
+            $file = $_SERVER['DOCUMENT_ROOT'] . $path;
+
+            $getID3 = new getID3;
+            $fileinfo = $getID3->analyze($file);
+
             $vidObj->burnedInCaptions = $video['_cdp_video_videos_video_captions'];
-            $vidObj->downloadUrl = '';
-            $vidObj->streamUrl = '';
-            $vidObj->filetype = '';
+            $vidObj->downloadUrl = $filesrc;
+            $vidObj->streamUrl = $video['_cdp_video_videos_video_streaming_url'];
+            $vidObj->filetype = $fileinfo['fileformat'];
+
             $size = new stdClass();
-            $size->width = 0;
-            $size->height = 0;
-            $size->filesize = 0;
-            $size->speed = 0;
+            $size->width = $fileinfo['video']['resolution_x'];
+            $size->height = $fileinfo['video']['resolution_y'];
+            $size->filesize = $fileinfo['filesize'];
+            $size->bitrate = $fileinfo['bitrate'];
+
             $vidObj->size = $size;
+            
             array_push($unit->source, $vidObj);
           }
         }
@@ -147,6 +159,10 @@ if (is_plugin_active($required_plugin)) {
     private function get_headers( $id ) {
       $headers = get_post_meta($id, '_cdp_video_headers', true);
       return $headers;
+    }
+
+    private function get_file_meta( $file ) {
+      return get_meta_tags($file);
     }
 
     private function filter_languages($srts, $transcripts, $categories, $tags, $videos, $headers) {
