@@ -23,36 +23,34 @@ if (is_plugin_active($required_plugin)) {
       $document['type'] = $this->type;
       $document['published'] = get_the_date('c', $post->ID);
       $document['modified'] = get_the_modified_date('c', $post->ID);
-      $document['owner'] = get_post_meta($post->ID, '_cdp_video_owner', true);
-      $document['author'] = get_post_meta($post->ID, '_cdp_video_author', true);
-      $document['duration'] = $this->duration_to_seconds($post->ID);
-      $document['unit'] = $this->get_units($post->ID);
+      $document['owner'] = $post->_cdp_video_owner?$post->_cdp_video_owner:'';
+      $document['author'] = $post->_cdp_video_author?$post->_cdp_video_author:'';
+      $document['duration'] = $this->duration_to_seconds($post);
+      $document['unit'] = $this->get_units($post);
 
       return rest_ensure_response($document);
     }
 
-    private function duration_to_seconds( $id ) {
+    private function duration_to_seconds( $post ) {
       
-      $duration = get_post_meta($id, '_cdp_video_duration', true);
-      list($hours, $minutes, $seconds) = explode(':', $duration);
+      $duration = $post->_cdp_video_duration?$post->_cdp_video_duration:'';
 
-      if ( $seconds ) {
+      if ($duration !== '') {
+        list($hours, $minutes, $seconds) = explode(':', $duration);
         $duration = ( $hours * 3600 ) + ( $minutes * 60 ) + $seconds;
-      } else {
-        $duration = null;
       }
 
       return $duration;
     }
 
-    private function get_units( $id ) {
+    private function get_units( $post ) {
       $units = array();
-      $srts = $this->get_srts( $id );
-      $transcripts = $this->get_transcripts( $id );
-      $categories = $this->get_categories( $id );
-      $tags = $this->get_tags( $id );
-      $videos = $this->get_videos( $id );
-      $headers = $this->get_headers( $id );
+      $srts = $this->get_srts( $post );
+      $transcripts = $this->get_transcripts( $post );
+      $categories = $this->get_categories( $post );
+      $tags = $this->get_tags( $post );
+      $videos = $this->get_videos( $post );
+      $headers = $this->get_headers( $post );
 
       $languages = $this->filter_languages($srts, $transcripts, $categories, $tags, $videos, $headers);
 
@@ -63,21 +61,21 @@ if (is_plugin_active($required_plugin)) {
 
         foreach ($headers as $header) {
           if (in_array($key, $header, true)) {
-            $unit->title = $header['_cdp_video_headers_title'];
-            $unit->desc = $header['_cdp_video_headers_description'];
+            $unit->title = $header['_cdp_video_headers_title']?$header['_cdp_video_headers_title']:'';
+            $unit->desc = $header['_cdp_video_headers_description']?$header['_cdp_video_headers_description']:'';
           }
         }
 
         $unit->categories = array();
         foreach ($categories as $category) {
           if (in_array($key, $category, true))
-            $unit->categories = array_map('trim', explode(',', $category['_cdp_video_categories_language_categories']));
+            $unit->categories = $category['_cdp_video_categories_language_categories']?array_map('trim', explode(',', $category['_cdp_video_categories_language_categories'])):array();
         }
 
         $unit->tags = array();
         foreach ($tags as $tag) {
           if (in_array($key, $tag, true))
-            $unit->tags = array_map('trim', explode(',', $tag['_cdp_video_tags_language_tags']));
+            $unit->tags = $tag['_cdp_video_tags_language_tags']?array_map('trim', explode(',', $tag['_cdp_video_tags_language_tags'])):array();
         }
 
         $unit->source = array();
@@ -86,23 +84,30 @@ if (is_plugin_active($required_plugin)) {
           if (in_array($key, $video, true)) {
             $vidObj = new stdClass();
 
-            $filesrc = $video['_cdp_video_videos_video_file'];
+            $filesrc = $video['_cdp_video_videos_video_file']?$video['_cdp_video_videos_video_file']:'';
             $path = parse_url($filesrc, PHP_URL_PATH);
             $file = $_SERVER['DOCUMENT_ROOT'] . $path;
 
-            $getID3 = new getID3;
-            $fileinfo = $getID3->analyze($file);
+            $fileinfo = array();
+            if ($filesrc != '') {
+              $getID3 = new getID3;
+              $fileinfo = $getID3->analyze($file);
+            }
 
             $vidObj->burnedInCaptions = $video['_cdp_video_videos_video_captions'];
             $vidObj->downloadUrl = $filesrc;
-            $vidObj->streamUrl = $video['_cdp_video_videos_video_streaming_url'];
-            $vidObj->filetype = $fileinfo['fileformat'];
+            $vidObj->streamUrl = $video['_cdp_video_videos_video_streaming_url']?$video['_cdp_video_videos_video_streaming_url']:'';
+            $vidObj->filetype = $fileinfo['fileformat']?$fileinfo['fileformat']:'';
 
             $size = new stdClass();
-            $size->width = $fileinfo['video']['resolution_x'];
-            $size->height = $fileinfo['video']['resolution_y'];
-            $size->filesize = $fileinfo['filesize'];
-            $size->bitrate = $fileinfo['bitrate'];
+            if ( count($fileinfo) > 0 ) {
+              $size->width = $fileinfo['video']['resolution_x'];
+              $size->height = $fileinfo['video']['resolution_y'];
+              $size->filesize = $fileinfo['filesize'];
+              $size->bitrate = $fileinfo['bitrate'];
+            } else {
+              $size = null;
+            }
 
             $vidObj->size = $size;
 
@@ -113,15 +118,15 @@ if (is_plugin_active($required_plugin)) {
         foreach ($transcripts as $transcript) {
           if (in_array($key, $transcript, true)) {
             $transObj = new stdClass();
-            $transObj->srcUrl = $transcript['_cdp_video_transcripts_transcript_file'];
-            $transObj->text = $transcript['_cdp_video_transcripts_transcript_text'];
+            $transObj->srcUrl = $transcript['_cdp_video_transcripts_transcript_file']?$transcript['_cdp_video_transcripts_transcript_file']:'';
+            $transObj->text = $transcript['_cdp_video_transcripts_transcript_text']?$transcript['_cdp_video_transcripts_transcript_text']:'';
             $unit->transcript = $transObj;
           }
         }
 
         foreach ($srts as $srt) {
           if (in_array($key, $srt, true))
-            $unit->srt = $srt['_cdp_video_srts_srt_file'];
+            $unit->srt = $srt['_cdp_video_srts_srt_file']?$srt['_cdp_video_srts_srt_file']:'';
         }
 
         array_push($units, $unit);
@@ -131,33 +136,33 @@ if (is_plugin_active($required_plugin)) {
       return $units;
     }
 
-    private function get_srts( $id ) {
-      $srts = get_post_meta($id, '_cdp_video_srts_srt', true);
+    private function get_srts( $post ) {
+      $srts = $post->_cdp_video_srts_srt;
       return $srts;
     }
 
-    private function get_transcripts( $id ) {
-      $transcripts = get_post_meta($id, '_cdp_video_transcripts_transcript', true);
+    private function get_transcripts( $post ) {
+      $transcripts = $post->_cdp_video_transcripts_transcript;
       return $transcripts;
     }
 
-    private function get_categories( $id ) {
-      $categories = get_post_meta($id, '_cdp_video_categories_language', true);
+    private function get_categories( $post ) {
+      $categories = $post->_cdp_video_categories_language;
       return $categories;
     }
 
-    private function get_tags( $id ) {
-      $tags = get_post_meta($id, '_cdp_video_tags_language', true);    
+    private function get_tags( $post ) {
+      $tags = $post->_cdp_video_tags_language;
       return $tags;
     }
 
-    private function get_videos( $id ) {
-      $videos = get_post_meta($id, '_cdp_video_videos_video', true);
+    private function get_videos( $post ) {
+      $videos = $post->_cdp_video_videos_video;
       return $videos;
     }
     
-    private function get_headers( $id ) {
-      $headers = get_post_meta($id, '_cdp_video_headers', true);
+    private function get_headers( $post ) {
+      $headers = $post->_cdp_video_headers;
       return $headers;
     }
 
