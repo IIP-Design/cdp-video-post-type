@@ -61,21 +61,21 @@ if (is_plugin_active($required_plugin)) {
 
         foreach ($headers as $header) {
           if (in_array($key, $header, true)) {
-            $unit->title = $header['_cdp_video_headers_title']?$header['_cdp_video_headers_title']:'';
-            $unit->desc = $header['_cdp_video_headers_description']?$header['_cdp_video_headers_description']:'';
+            $unit->title = isset($header['_cdp_video_headers_title'])?$header['_cdp_video_headers_title']:'';
+            $unit->desc = isset($header['_cdp_video_headers_description'])?$header['_cdp_video_headers_description']:'';
           }
         }
 
         $unit->categories = array();
         foreach ($categories as $category) {
           if (in_array($key, $category, true))
-            $unit->categories = $category['_cdp_video_categories_language_categories']?array_map('trim', explode(',', $category['_cdp_video_categories_language_categories'])):array();
+            $unit->categories = isset($category['_cdp_video_categories_language_categories'])?array_map('trim', explode(',', $category['_cdp_video_categories_language_categories'])):array();
         }
 
         $unit->tags = array();
         foreach ($tags as $tag) {
           if (in_array($key, $tag, true))
-            $unit->tags = $tag['_cdp_video_tags_language_tags']?array_map('trim', explode(',', $tag['_cdp_video_tags_language_tags'])):array();
+            $unit->tags = isset($tag['_cdp_video_tags_language_tags'])?array_map('trim', explode(',', $tag['_cdp_video_tags_language_tags'])):array();
         }
 
         $unit->source = array();
@@ -84,7 +84,7 @@ if (is_plugin_active($required_plugin)) {
           if (in_array($key, $video, true)) {
             $vidObj = new stdClass();
 
-            $filesrc = $video['_cdp_video_videos_video_file']?$video['_cdp_video_videos_video_file']:'';
+            $filesrc = isset($video['_cdp_video_videos_video_file'])?$video['_cdp_video_videos_video_file']:'';
             $path = parse_url($filesrc, PHP_URL_PATH);
             $file = $_SERVER['DOCUMENT_ROOT'] . $path;
 
@@ -96,8 +96,8 @@ if (is_plugin_active($required_plugin)) {
 
             $vidObj->burnedInCaptions = $video['_cdp_video_videos_video_captions'];
             $vidObj->downloadUrl = $filesrc;
-            $vidObj->streamUrl = $video['_cdp_video_videos_video_streaming_url']?$video['_cdp_video_videos_video_streaming_url']:'';
-            $vidObj->filetype = $fileinfo['fileformat']?$fileinfo['fileformat']:'';
+            $vidObj->streamUrl = isset($video['_cdp_video_videos_video_streaming_url'])?$video['_cdp_video_videos_video_streaming_url']:'';
+            $vidObj->filetype = isset($fileinfo['fileformat'])?$fileinfo['fileformat']:'';
 
             $size = new stdClass();
             if ( count($fileinfo) > 0 ) {
@@ -118,15 +118,15 @@ if (is_plugin_active($required_plugin)) {
         foreach ($transcripts as $transcript) {
           if (in_array($key, $transcript, true)) {
             $transObj = new stdClass();
-            $transObj->srcUrl = $transcript['_cdp_video_transcripts_transcript_file']?$transcript['_cdp_video_transcripts_transcript_file']:'';
-            $transObj->text = $transcript['_cdp_video_transcripts_transcript_text']?$transcript['_cdp_video_transcripts_transcript_text']:'';
+            $transObj->srcUrl = isset($transcript['_cdp_video_transcripts_transcript_file'])?$transcript['_cdp_video_transcripts_transcript_file']:'';
+            $transObj->text = isset($transcript['_cdp_video_transcripts_transcript_text'])?$transcript['_cdp_video_transcripts_transcript_text']:'';
             $unit->transcript = $transObj;
           }
         }
 
         foreach ($srts as $srt) {
           if (in_array($key, $srt, true))
-            $unit->srt = $srt['_cdp_video_srts_srt_file']?$srt['_cdp_video_srts_srt_file']:'';
+            $unit->srt = isset($srt['_cdp_video_srts_srt_file'])?$srt['_cdp_video_srts_srt_file']:'';
         }
 
         array_push($units, $unit);
