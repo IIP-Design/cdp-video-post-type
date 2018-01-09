@@ -85,11 +85,12 @@ if (is_plugin_active($required_plugin)) {
             $vidObj = new stdClass();
 
             $filesrc = isset($video['_cdp_video_videos_video_file'])?$video['_cdp_video_videos_video_file']:'';
-            $path = parse_url($filesrc, PHP_URL_PATH);
-            $file = $_SERVER['DOCUMENT_ROOT'] . $path;
-
             $fileinfo = array();
-            if ($filesrc != '') {
+
+            if ($filesrc !== '') {
+              $path = parse_url($filesrc, PHP_URL_PATH);
+              $file = $_SERVER['DOCUMENT_ROOT'] . $path;
+
               $getID3 = new getID3;
               $fileinfo = $getID3->analyze($file);
             }
@@ -116,17 +117,20 @@ if (is_plugin_active($required_plugin)) {
         }
 
         foreach ($transcripts as $transcript) {
+          $transObj = new stdClass();
           if (in_array($key, $transcript, true)) {
-            $transObj = new stdClass();
             $transObj->srcUrl = isset($transcript['_cdp_video_transcripts_transcript_file'])?$transcript['_cdp_video_transcripts_transcript_file']:'';
             $transObj->text = isset($transcript['_cdp_video_transcripts_transcript_text'])?$transcript['_cdp_video_transcripts_transcript_text']:'';
-            $unit->transcript = $transObj;
           }
+          $unit->transcript = (count((array)$transObj) > 0)?$transObj:null;
         }
 
         foreach ($srts as $srt) {
-          if (in_array($key, $srt, true))
-            $unit->srt = isset($srt['_cdp_video_srts_srt_file'])?$srt['_cdp_video_srts_srt_file']:'';
+          if ( in_array($key, $srt, true) && isset($srt['_cdp_video_srts_srt_file']) ) {
+            $unit->srt = $srt['_cdp_video_srts_srt_file'];
+          } else {
+            $unit->srt = '';
+          }
         }
 
         array_push($units, $unit);
