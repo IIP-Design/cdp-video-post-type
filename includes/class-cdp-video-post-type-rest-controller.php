@@ -18,7 +18,7 @@ if (is_plugin_active($required_plugin)) {
       $document = array();
 
       // fields to apply to video json document
-      $document['id'] = (int)$post->ID;
+      $document['post_id'] = (int)$post->ID;
       $document['site'] = $this->index_name;
       $document['type'] = $this->type;
       $document['published'] = get_the_date('c', $post->ID);
