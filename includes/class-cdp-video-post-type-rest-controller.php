@@ -45,12 +45,12 @@ if (is_plugin_active($required_plugin)) {
 
     private function get_units( $post ) {
       $units = array();
-      $srts = $this->get_srts( $post );
-      $transcripts = $this->get_transcripts( $post );
-      $categories = $this->get_categories( $post );
-      $tags = $this->get_tags( $post );
-      $videos = $this->get_videos( $post );
-      $headers = $this->get_headers( $post );
+      $srts = $this->get_srts( $post ) ?: array();
+      $transcripts = $this->get_transcripts( $post ) ?: array();
+      $categories = $this->get_categories( $post ) ?: array();
+      $tags = $this->get_tags( $post ) ?: array();
+      $videos = $this->get_videos( $post ) ?: array();
+      $headers = $this->get_headers( $post ) ?: array();
 
       $languages = $this->filter_languages($srts, $transcripts, $categories, $tags, $videos, $headers);
 
