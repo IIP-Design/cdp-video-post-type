@@ -20,8 +20,8 @@
     ],
     "require": {
        "composer/installers": "~1.0",
-       "cmb2/cmb2": "~v2.3.0",
-       "james-heinrich/getid3": "^v1.9.15"
+       "cmb2/cmb2": "v2.2.6.2",
+       "james-heinrich/getid3": "v1.9.15"
     },
     "extra": {
         "installer-paths": {
