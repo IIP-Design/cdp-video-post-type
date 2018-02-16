@@ -11,21 +11,17 @@
     "repositories": [
         {
             "type": "git",
-            "url": "git@github.com:CMB2/CMB2.git"
-        },
-        {
-            "type": "git",
             "url": "git@github.com:JamesHeinrich/getID3.git"
         }
     ],
     "require": {
        "composer/installers": "~1.0",
-       "cmb2/cmb2": "v2.2.6.2",
+       "wpackagist-plugin/cmb2": "2.3.0",
        "james-heinrich/getid3": "v1.9.15"
     },
     "extra": {
         "installer-paths": {
-            "vendor/cmb2/cmb2": ["cmb2/cmb2"],
+            "vendor/cmb2/cmb2": ["wpackagist-plugin/cmb2"],
             "vendor/james-heinrich/getid3": ["james-heinrich/getid3"]
         }
     }
