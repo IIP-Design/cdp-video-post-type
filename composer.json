@@ -11,17 +11,16 @@
     "repositories": [
         {
             "type": "git",
-            "url": "git@github.com:cmb2/cmb2.git"
+            "url": "git@github.com:CMB2/CMB2.git"
         },
         {
             "type": "git",
             "url": "git@github.com:JamesHeinrich/getID3.git"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
        "composer/installers": "~1.0",
-       "cmb2/cmb2": "^v2.2.0",
+       "cmb2/cmb2": "~v2.3.0",
        "james-heinrich/getid3": "^v1.9.15"
     },
     "extra": {
