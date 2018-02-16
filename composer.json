@@ -10,8 +10,8 @@
     ],
     "repositories": [
         {
-            "type": "git",
-            "url": "git@github.com:cmb2/cmb2.git"
+            "type": "composer",
+            "url": "https://wpackagist.org"
         },
         {
             "type": "git",
@@ -21,7 +21,7 @@
     "minimum-stability": "stable",
     "require": {
        "composer/installers": "~1.0",
-       "cmb2/cmb2": "2.3.0",
+       "wpackagist-plugin/cmb2": "2.3.0",
        "james-heinrich/getid3": "v1.9.15"
     },
     "autoload"    : {
@@ -32,7 +32,7 @@
     },
     "extra": {
         "installer-paths": {
-            "vendor/cmb2/cmb2": ["cmb2/cmb2"],
+            "vendor/cmb2/cmb2": ["wpackagist-plugin/cmb2"],
             "vendor/james-heinrich/getid3": ["james-heinrich/getid3"]
         }
     }
