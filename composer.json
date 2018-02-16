@@ -21,7 +21,7 @@
     "minimum-stability": "stable",
     "require": {
        "composer/installers": "~1.0",
-       "cmb2/cmb2": "^2.2",
+       "cmb2/cmb2": "^v2.2.0",
        "james-heinrich/getid3": "^v1.9.15"
     },
     "extra": {
