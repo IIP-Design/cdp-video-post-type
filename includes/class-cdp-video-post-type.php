@@ -237,7 +237,7 @@ class Cdp_Video_Post_Type
 			'label' => __('Video', 'cdp-video-post-type'),
 			'description' => __('CDP video custom post-type', 'cdp-video-post-type'),
 			'labels' => $labels,
-			'supports' => array('title'),
+			'supports' => array('title', 'cdp-rest'),
 			//'taxonomies' => array('category', 'post_tag'),
 			'taxonomies' => array(),
 			'hierarchical' => false,
