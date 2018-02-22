@@ -48,13 +48,6 @@ function deactivate_cdp_video_post_type()
 register_activation_hook(__FILE__, 'activate_cdp_video_post_type');
 register_deactivation_hook(__FILE__, 'deactivate_cdp_video_post_type');
 
-/**
- * The core plugin class that is used to define internationalization,
- * admin-specific hooks, and public-facing site hooks.
- */
-require plugin_dir_path(__FILE__) . 'includes/class-cdp-video-post-type.php';
-require plugin_dir_path(__FILE__) . 'includes/class-cdp-video-post-type-rest-controller.php';
-
 
 /**
  * Begins execution of the plugin.
@@ -67,6 +60,13 @@ require plugin_dir_path(__FILE__) . 'includes/class-cdp-video-post-type-rest-con
  */
 function run_cdp_video_post_type()
 {
+
+  /**
+   * The core plugin class that is used to define internationalization,
+   * admin-specific hooks, and public-facing site hooks.
+   */
+  require plugin_dir_path(__FILE__) . 'includes/class-cdp-video-post-type.php';
+  require plugin_dir_path(__FILE__) . 'includes/class-cdp-video-post-type-rest-controller.php';
 	$plugin = new Cdp_Video_Post_Type();
 	$plugin->run();
 }
