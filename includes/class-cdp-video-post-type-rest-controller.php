@@ -6,6 +6,7 @@ if (!defined('WPINC')) {
 // include dependencies
 include_once (ABSPATH . 'wp-admin/includes/plugin.php');
 //include_once (WP_PLUGIN_DIR . '/wp-elasticsearch-feeder/wp-es-feeder.php');
+include_once (plugin_dir_path(dirname(__FILE__)) . 'vendors/james-heinrich/getid3/getid3/getid3.php');
 
 // required for this to execute correctly
 $required_plugin = 'wp-elasticsearch-feeder/wp-es-feeder.php';
