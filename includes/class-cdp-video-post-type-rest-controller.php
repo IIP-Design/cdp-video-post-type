@@ -90,9 +90,11 @@ if (is_plugin_active($required_plugin)) {
             if ($filesrc !== '') {
               $path = parse_url($filesrc, PHP_URL_PATH);
               $file = $_SERVER['DOCUMENT_ROOT'] . $path;
-
-              $getID3 = new getID3;
-              $fileinfo = $getID3->analyze($file);
+              
+              if (file_exists($file)){
+                $getID3 = new getID3;
+                $fileinfo = $getID3->analyze($file);
+              }
             }
 
             $vidObj->burnedInCaptions = $video['_cdp_video_videos_video_captions'];
