@@ -130,8 +130,6 @@ if (is_plugin_active($required_plugin)) {
         foreach ($srts as $srt) {
           if ( in_array($key, $srt, true) && isset($srt['_cdp_video_srts_srt_file']) ) {
             $unit->srt = $srt['_cdp_video_srts_srt_file'];
-          } else {
-            $unit->srt = null;
           }
         }
 
