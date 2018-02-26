@@ -94,6 +94,7 @@ if (is_plugin_active($required_plugin)) {
               if (file_exists($file)){
                 $getID3 = new getID3;
                 $fileinfo = $getID3->analyze($file);
+                $vidObj->md5 = md5_file($file);
               }
             }
 
@@ -123,6 +124,8 @@ if (is_plugin_active($required_plugin)) {
           if (in_array($key, $transcript, true)) {
             $transObj->srcUrl = isset($transcript['_cdp_video_transcripts_transcript_file'])?$transcript['_cdp_video_transcripts_transcript_file']:'';
             $transObj->text = isset($transcript['_cdp_video_transcripts_transcript_text'])?$transcript['_cdp_video_transcripts_transcript_text']:'';
+            if ($transObj->srcUrl)
+              $transObj->md5 = $this->get_md5_from_url($transObj->srcUrl);
           }
           $unit->transcript = (count((array)$transObj) > 0)?$transObj:null;
         }
@@ -130,6 +133,9 @@ if (is_plugin_active($required_plugin)) {
         foreach ($srts as $srt) {
           if ( in_array($key, $srt, true) && isset($srt['_cdp_video_srts_srt_file']) ) {
             $unit->srt = (object) array('srcUrl' => $srt['_cdp_video_srts_srt_file']);
+            if ($unit->srt->srcUrl) {
+              $unit->srt->md5 = $this->get_md5_from_url($unit->srt->srcUrl);
+            }
           }
         }
 
@@ -183,6 +189,15 @@ if (is_plugin_active($required_plugin)) {
             $langarray[$key] = $value;
       }
       return $langarray;
+    }
+
+    private function get_md5_from_url($url) {
+      $path = parse_url($url, PHP_URL_PATH);
+      $file = $_SERVER['DOCUMENT_ROOT'] . $path;
+      $md5 = null;
+      if (file_exists($file))
+        $md5 = md5_file($file);
+      return $md5;
     }
   }
 
