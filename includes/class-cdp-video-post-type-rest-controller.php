@@ -38,6 +38,8 @@ if (is_plugin_active($required_plugin)) {
       if ($duration !== '') {
         list($hours, $minutes, $seconds) = explode(':', $duration);
         $duration = ( $hours * 3600 ) + ( $minutes * 60 ) + $seconds;
+      } else {
+        $duration = 0;
       }
 
       return $duration;
