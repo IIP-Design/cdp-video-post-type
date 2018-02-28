@@ -129,7 +129,7 @@ if (is_plugin_active($required_plugin)) {
             if ($transObj->srcUrl)
               $transObj->md5 = $this->get_md5_from_url($transObj->srcUrl);
           }
-          $unit->transcript = (count((array)$transObj) > 0)?$transObj:null;
+          $unit->transcript = $transObj;
         }
 
         foreach ($srts as $srt) {
