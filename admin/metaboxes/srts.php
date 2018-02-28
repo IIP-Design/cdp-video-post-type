@@ -35,7 +35,7 @@ $srts->add_group_field( $srt, array(
     'add_upload_file_text' => 'Add SRT File'
   ),
   'query_args' => array(
-    'type' => ['application/srt', 'text/plain'],
+    'type' => 'text/plain',
   ),
 ));
 
