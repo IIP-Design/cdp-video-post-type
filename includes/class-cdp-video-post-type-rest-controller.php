@@ -59,6 +59,7 @@ if (is_plugin_active($required_plugin)) {
       foreach($languages as $key=>$value) {
         $unit = new stdClass();
 
+        $unit->transcript = new stdClass();
         $unit->language = Language_Helper::get_language_by_locale( $key );
 
         foreach ($headers as $header) {
@@ -128,8 +129,8 @@ if (is_plugin_active($required_plugin)) {
             $transObj->text = isset($transcript['_cdp_video_transcripts_transcript_text'])?$transcript['_cdp_video_transcripts_transcript_text']:'';
             if ($transObj->srcUrl)
               $transObj->md5 = $this->get_md5_from_url($transObj->srcUrl);
+            $unit->transcript = $transObj;
           }
-          $unit->transcript = $transObj;
         }
 
         foreach ($srts as $srt) {
