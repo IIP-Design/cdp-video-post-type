@@ -69,18 +69,6 @@ if (is_plugin_active($required_plugin)) {
           }
         }
 
-        $unit->categories = array();
-        foreach ($categories as $category) {
-          if (in_array($key, $category, true))
-            $unit->categories = isset($category['_cdp_video_categories_language_categories'])?array_map('trim', explode(',', $category['_cdp_video_categories_language_categories'])):array();
-        }
-
-        $unit->tags = array();
-        foreach ($tags as $tag) {
-          if (in_array($key, $tag, true))
-            $unit->tags = isset($tag['_cdp_video_tags_language_tags'])?array_map('trim', explode(',', $tag['_cdp_video_tags_language_tags'])):array();
-        }
-
         $unit->source = array();
 
         foreach ($videos as $video) {
