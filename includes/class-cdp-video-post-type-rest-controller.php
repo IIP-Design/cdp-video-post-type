@@ -46,6 +46,7 @@ if (is_plugin_active($required_plugin)) {
     }
 
     private function get_units( $post ) {
+      global $cdp_language_helper;
       $units = array();
       $srts = $this->get_srts( $post ) ?: array();
       $transcripts = $this->get_transcripts( $post ) ?: array();
@@ -60,7 +61,7 @@ if (is_plugin_active($required_plugin)) {
         $unit = new stdClass();
 
         $unit->transcript = new stdClass();
-        $unit->language = Language_Helper::get_language_by_locale( $key );
+        $unit->language = $cdp_language_helper->get_language_by_locale( $key );
 
         foreach ($headers as $header) {
           if (in_array($key, $header, true)) {
