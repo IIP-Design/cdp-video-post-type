@@ -297,11 +297,13 @@ class Cdp_Video_Post_Type
 	}
 
 	public static function get_languages() {
-		$languages = Language_Helper::LANGUAGE_HASH;
+	  global $cdp_language_helper;
+	  if ( !$cdp_language_helper ) return [];
+		$languages = $cdp_language_helper->get_languages();
 		$langArray = array();
 
-		foreach( $languages as $key=>$value ) {
-			$langArray[$key] = $value['display_name'];
+		foreach( $languages as $key => $value ) {
+			$langArray[$key] = $value->display_name;
 		}
 
 		return $langArray;
