@@ -9,7 +9,7 @@ if ( !class_exists( 'Cdp_Video_Post_Type_Admin_Helpers' ) ) {
         'desc'             => 'Select the language.',
         'id'               => $id,
         'type'             => 'select',
-        'default'          => 'english',
+        'default'          => 'en-us',
         'options'          => Cdp_Video_Post_Type::get_languages()
       ) );
     }
