@@ -67,7 +67,9 @@ $details->add_field( array(
   'name'    => 'Video Owner',
   'desc'    => 'Owner of the video',
   'id'      => $prefix . 'owner',
-  'type'    => 'text',
+  'type'    => 'select',
+  'default' => 'english',
+  'options' => Cdp_Video_Post_Type::get_owners()
 ) );
 
 ?>
