@@ -309,4 +309,30 @@ class Cdp_Video_Post_Type
 		return $langArray;
 	}
 
+  /**
+   * Retrieves the allowed owner list from the API and populates an array for use
+   * in the owner dropdown.
+   *
+   * @return array
+   */
+	public static function get_owners() {
+	  global $feeder;
+	  if ( !$feeder ) return [];
+	  $owners = [''];
+	  $args = [
+	    'method' => 'GET',
+      'url' => 'owner'
+    ];
+	  $data = $feeder->es_request($args);
+
+    if ( $data && count( $data )
+      && (!is_array( $data ) || !array_key_exists( 'error', $data ) || !$data[ 'error' ])
+      && (!is_object( $data ) || !$data->error) ) {
+      foreach ($data as $owner) {
+        $owners[$owner->name] = $owner->name;
+      }
+    }
+	  return $owners;
+  }
+
 }
