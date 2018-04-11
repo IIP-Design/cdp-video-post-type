@@ -43,8 +43,8 @@ $videos->add_group_field($video, array(
 ));
 
 $videos->add_group_field($video, array(
-  'name' => 'Streaming URL',
-  'desc' => 'Enter a streaming URL.',
+  'name' => 'YouTube URL',
+  'desc' => 'Enter a YouTube streaming URL.',
   'id' => $prefix . 'videos_video_streaming_url',
   'type' => 'oembed',
 ));

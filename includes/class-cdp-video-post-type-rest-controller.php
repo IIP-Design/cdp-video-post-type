@@ -92,7 +92,9 @@ if (is_plugin_active($required_plugin)) {
 
             $vidObj->burnedInCaptions = $video['_cdp_video_videos_video_captions'];
             $vidObj->downloadUrl = $filesrc;
-            $vidObj->streamUrl = isset($video['_cdp_video_videos_video_streaming_url'])?$video['_cdp_video_videos_video_streaming_url']:'';
+            $vidObj->streamUrl = [];
+            if ( isset($video['_cdp_video_videos_video_streaming_url']) )
+              $vidObj->streamUrl[] = ['site' => 'youtube', 'url' => $video['_cdp_video_videos_video_streaming_url']];
             $vidObj->filetype = isset($fileinfo['fileformat'])?$fileinfo['fileformat']:'';
 
             $size = new stdClass();
