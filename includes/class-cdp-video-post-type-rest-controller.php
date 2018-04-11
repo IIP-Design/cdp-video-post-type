@@ -27,6 +27,7 @@ if (is_plugin_active($required_plugin)) {
       $document['author'] = $post->_cdp_video_author?$post->_cdp_video_author:'';
       $document['duration'] = $this->duration_to_seconds($post);
       $document['unit'] = $this->get_units($post);
+      $document['thumbnail'] = ES_API_HELPER::get_image_size_array(get_post_thumbnail_id($post)) ?: [];
 
       return rest_ensure_response($document);
     }
