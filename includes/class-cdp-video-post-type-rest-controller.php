@@ -139,13 +139,18 @@ if (is_plugin_active($required_plugin)) {
     }
 
     private function get_srts( $post ) {
-      $srts = $post->_cdp_video_srts_srt;
-      return $srts;
+      $filter = array_filter( $post->_cdp_video_srts_srt, function ( $srt ) {
+        return $srt['_cdp_video_srts_srt_file'] !== false;
+      } );
+      return array_map( function ( $srt ) { return $srt; }, $filter );
     }
 
     private function get_transcripts( $post ) {
-      $transcripts = $post->_cdp_video_transcripts_transcript;
-      return $transcripts;
+      $filter = array_filter( $post->_cdp_video_transcripts_transcript, function ( $transcript ) {
+        return ( isset( $transcript['_cdp_video_transcripts_transcript_file'] )
+          || isset( $transcript['_cdp_video_transcripts_transcript_text'] ) );
+      } );
+      return array_map( function ( $transcript ) { return $transcript; }, $filter );
     }
 
     private function get_categories( $post ) {
@@ -159,13 +164,19 @@ if (is_plugin_active($required_plugin)) {
     }
 
     private function get_videos( $post ) {
-      $videos = $post->_cdp_video_videos_video;
-      return $videos;
+      $filter = array_filter( $post->_cdp_video_videos_video, function ( $video ) {
+        return ( isset( $video['_cdp_video_videos_video_file'] )
+          || isset( $video['_cdp_video_videos_video_streaming_url'] ) );
+      } );
+      return array_map( function ( $video ) { return $video; }, $filter );
     }
     
     private function get_headers( $post ) {
-      $headers = $post->_cdp_video_headers;
-      return $headers;
+      $filter = array_filter( $post->_cdp_video_headers, function ( $header ) {
+        return ( isset( $header['_cdp_video_headers_title'] )
+         || isset( $header['_cdp_video_headers_description'] ) );
+      } );
+      return array_map( function ( $header ) { return $header; }, $filter );
     }
 
     private function filter_languages($srts, $transcripts, $categories, $tags, $videos, $headers) {
