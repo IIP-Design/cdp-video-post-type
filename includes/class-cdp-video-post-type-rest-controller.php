@@ -140,7 +140,7 @@ if (is_plugin_active($required_plugin)) {
 
     private function get_srts( $post ) {
       $filter = array_filter( $post->_cdp_video_srts_srt, function ( $srt ) {
-        return $srt['_cdp_video_srts_srt_file'] !== false;
+        return !empty( $srt['_cdp_video_srts_srt_file'] );
       } );
       return array_map( function ( $srt ) { return $srt; }, $filter );
     }
