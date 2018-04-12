@@ -316,6 +316,10 @@ class Cdp_Video_Post_Type
    * @return array
    */
 	public static function get_owners() {
+    if (defined('DOING_AJAX') && DOING_AJAX) {
+      $owners = get_option('cdp_owners');
+      if ($owners) return $owners;
+    }
 	  global $feeder;
 	  if ( !$feeder ) return [];
 	  $owners = [''];
@@ -332,6 +336,7 @@ class Cdp_Video_Post_Type
         $owners[$owner->name] = $owner->name;
       }
     }
+    update_option('cdp_owners', $owners);
 	  return $owners;
   }
 
