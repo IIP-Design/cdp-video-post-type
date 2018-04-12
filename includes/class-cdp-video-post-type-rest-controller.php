@@ -27,6 +27,7 @@ if (is_plugin_active($required_plugin)) {
       $document['author'] = $post->_cdp_video_author?$post->_cdp_video_author:'';
       $document['duration'] = $this->duration_to_seconds($post);
       $document['unit'] = $this->get_units($post);
+      $document['thumbnail'] = ES_API_HELPER::get_image_size_array(get_post_thumbnail_id($post)) ?: [];
 
       return rest_ensure_response($document);
     }
@@ -92,7 +93,9 @@ if (is_plugin_active($required_plugin)) {
 
             $vidObj->burnedInCaptions = $video['_cdp_video_videos_video_captions'];
             $vidObj->downloadUrl = $filesrc;
-            $vidObj->streamUrl = isset($video['_cdp_video_videos_video_streaming_url'])?$video['_cdp_video_videos_video_streaming_url']:'';
+            $vidObj->streamUrl = [];
+            if ( isset($video['_cdp_video_videos_video_streaming_url']) )
+              $vidObj->streamUrl[] = ['site' => 'youtube', 'url' => $video['_cdp_video_videos_video_streaming_url']];
             $vidObj->filetype = isset($fileinfo['fileformat'])?$fileinfo['fileformat']:'';
 
             $size = new stdClass();
