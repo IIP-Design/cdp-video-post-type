@@ -91,7 +91,7 @@ if (is_plugin_active($required_plugin)) {
               }
             }
 
-            $vidObj->burnedInCaptions = $video['_cdp_video_videos_video_captions'];
+            $vidObj->burnedInCaptions = (strtolower($video['_cdp_video_videos_video_captions']) == 'yes' ? true : false);
             $vidObj->downloadUrl = $filesrc;
             $vidObj->streamUrl = [];
             if ( isset($video['_cdp_video_videos_video_streaming_url']) )
