@@ -329,7 +329,7 @@ class Cdp_Video_Post_Type
     ];
 	  $data = $feeder->es_request($args);
 
-    if ( $data && count( $data )
+    if ( $data && count( $data ) && !is_string( $data )
       && (!is_array( $data ) || !array_key_exists( 'error', $data ) || !$data[ 'error' ])
       && (!is_object( $data ) || !$data->error) ) {
       foreach ($data as $owner) {
