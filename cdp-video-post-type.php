@@ -15,10 +15,10 @@
  * @wordpress-plugin
  * Plugin Name:       CDP Video Post Type
  * Plugin URI:        https://github.com/IIP-Design/cdp-video-post-type
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
- * Author:            Max Orelus
- * Author URI:        https://github.com/MaxOrelus
+ * Description:       A WordPress post type to create videos for use with the CDP.
+ * Version:           2.0.1
+ * Author:            IIP Design
+ * Author URI:        https://github.com/IIP-Design
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       cdp-video-post-type
