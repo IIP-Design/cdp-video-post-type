@@ -97,6 +97,8 @@ if (is_plugin_active($required_plugin)) {
             if ( isset($video['_cdp_video_videos_video_streaming_url']) )
               $vidObj->streamUrl[] = ['site' => 'youtube', 'url' => $video['_cdp_video_videos_video_streaming_url']];
             $vidObj->filetype = isset($fileinfo['fileformat'])?$fileinfo['fileformat']:'';
+            if ( array_key_exists('_cdp_video_videos_video_quality', $video) )
+              $vidObj->video_quality = $video['_cdp_video_videos_video_quality'];
 
             $size = new stdClass();
             if ( count($fileinfo) > 0 ) {
@@ -142,6 +144,7 @@ if (is_plugin_active($required_plugin)) {
     }
 
     private function get_srts( $post ) {
+      if ( !$post->_cdp_video_srts_srt ) return [];
       $filter = array_filter( $post->_cdp_video_srts_srt, function ( $srt ) {
         return !empty( $srt['_cdp_video_srts_srt_file'] );
       } );
@@ -149,6 +152,7 @@ if (is_plugin_active($required_plugin)) {
     }
 
     private function get_transcripts( $post ) {
+      if ( !$post->_cdp_video_transcripts_transcript ) return [];
       $filter = array_filter( $post->_cdp_video_transcripts_transcript, function ( $transcript ) {
         return ( !empty( $transcript['_cdp_video_transcripts_transcript_file'] )
           || !empty( $transcript['_cdp_video_transcripts_transcript_text'] ) );
@@ -167,6 +171,7 @@ if (is_plugin_active($required_plugin)) {
     }
 
     private function get_videos( $post ) {
+      if ( !$post->_cdp_video_videos_video ) return [];
       $filter = array_filter( $post->_cdp_video_videos_video, function ( $video ) {
         return ( !empty( $video['_cdp_video_videos_video_file'] )
           || !empty( $video['_cdp_video_videos_video_streaming_url'] ) );
@@ -175,6 +180,7 @@ if (is_plugin_active($required_plugin)) {
     }
     
     private function get_headers( $post ) {
+      if ( !$post->_cdp_video_headers ) return [];
       $filter = array_filter( $post->_cdp_video_headers, function ( $header ) {
         return ( !empty( $header['_cdp_video_headers_title'] )
          || !empty( $header['_cdp_video_headers_description'] ) );

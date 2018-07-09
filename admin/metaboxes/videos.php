@@ -22,6 +22,7 @@ $video = $videos->add_field( array(
   ),
 ) );
 
+
 $videos->add_group_field($video, array(
   'name' => 'Video File',
   'desc' => 'Upload a video file if you would like it downloadable.',
@@ -43,6 +44,20 @@ $videos->add_group_field($video, array(
 ));
 
 $videos->add_group_field($video, array(
+  'name'             => 'Video Quality',
+  'desc'             => 'Will this be used for web or broadcast?',
+  'id'               => $prefix . 'videos_video_quality',
+  'type'             => 'select',
+  'default'          => '',
+  'options'          => array(
+    '' => '',
+    'web' => __( 'Web', 'cdp-video-post-type' ),
+    'broadcast'   => __( 'Broadcast', 'cdp-video-post-type' ),
+  ),
+  'attributes' => ['required' => 'required']
+) );
+
+$videos->add_group_field($video, array(
   'name' => 'YouTube URL',
   'desc' => 'Enter a YouTube streaming URL.',
   'id' => $prefix . 'videos_video_streaming_url',
@@ -62,4 +77,3 @@ $videos->add_group_field($video, array(
 ) );
 
 Cdp_Video_Post_Type_Admin_Helpers::cmb2_video_post_type_language_metabox($videos, $video, $prefix . 'videos_video_language');
-?>
