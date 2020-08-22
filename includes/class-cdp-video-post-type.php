@@ -173,7 +173,7 @@ class Cdp_Video_Post_Type
 
 		$plugin_admin = new Cdp_Video_Post_Type_Admin($this->get_plugin_name(), $this->get_version());
 
-		// iniate cmb2
+		// initiate cmb2
 		$this->loader->add_action('cmb2_admin_init', $plugin_admin, 'cmb2_video_post_type_metaboxes');
 
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
