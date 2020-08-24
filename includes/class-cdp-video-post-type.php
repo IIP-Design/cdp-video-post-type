@@ -71,7 +71,7 @@ class Cdp_Video_Post_Type
 	{
 
 		$this->plugin_name = 'cdp-video-post-type';
-		$this->version = '2.0.1';
+		$this->version = '2.0.3';
 
 		$this->load_dependencies();
 		$this->set_locale();
