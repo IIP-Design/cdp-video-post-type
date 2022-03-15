@@ -10,7 +10,7 @@
   ],
   "minimum-stability": "stable",
   "require": {
-    "composer/installers": "~1.0",
+    "composer/installers": "^v2.0.1",
     "cmb2/cmb2": "^v2.7.0"
   }
 }
